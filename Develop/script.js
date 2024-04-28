@@ -4,17 +4,48 @@ const addEmployeesBtn = document.querySelector('#add-employees-btn');
 // Collect employee data
 const collectEmployees = function() {
   // TODO: Get user input to create and return an array of employee objects
-}
+  const employees = [];
+  let response = true;
+
+  while (response) {
+    const firstName = prompt('Enter the employee\'s first name:');
+    const lastName = prompt('Enter the employee\'s last name:');
+    const salary = parseFloat(prompt('Enter the employee\'s salary:')); 
+    
+    employees.push({firstName: firstName, 
+                    lastName: lastName,
+                    salary: salary
+                  });                    
+
+    response = confirm('Would you like to add another employee?');  
+  };
+ 
+  return employees;
+};
 
 // Display the average salary
 const displayAverageSalary = function(employeesArray) {
   // TODO: Calculate and display the average salary
-}
+  let totalSalary = 0;
+  for (i of employeesArray) {
+    totalSalary += i.salary;
+  };
+  const averageSalary = totalSalary / employeesArray.length;
+  console.log(`The average salary of all 
+              employees is: ${averageSalary.toLocaleString("en-US",{
+                            style:"currency",
+                            currency:"USD"
+                            })}`);                    
+};
 
 // Select a random employee
 const getRandomEmployee = function(employeesArray) {
   // TODO: Select and display a random employee
-}
+  const randomIndex = Math.floor(Math.random() * employeesArray.length);
+  const randomEmployee = employeesArray[randomIndex];
+
+  console.log(`Random Employee:${randomEmployee.firstName} ${randomEmployee.lastName}`);
+};
 
 /*
   ====================
@@ -55,7 +86,7 @@ const displayEmployees = function(employeesArray) {
 
     employeeTable.append(newTableRow);
   }
-}
+};
 
 const trackEmployeeData = function() {
   const employees = collectEmployees();
@@ -77,7 +108,7 @@ const trackEmployeeData = function() {
   });
 
   displayEmployees(employees);
-}
+};
 
 // Add event listener to 'Add Employees' button
 addEmployeesBtn.addEventListener('click', trackEmployeeData);
